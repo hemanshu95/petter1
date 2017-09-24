@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section >  
+    
+    <div class="col-md-4"></div>
+    <div id="pet_list" class="col-md-4" style="text-align: center">
+        <h2> Petitions</h2>
+
+    </div>
+    <div class="col-md-4"></div>
+
+
+</section>
+<script type="text/javascript">
+    var x=document.getElementById('pet_list');
+    var array1 = {{ array1|safe}};
+    for(var i = 1; i <= array1.length; i++) {
+        var i1 = document.createElement("a");
+        i1.href="/petition/P"+i+"/";
+        i1.innerHTML='<div class="row"><div class="col-md-4" align="right"><img src="/static/images/uploads/P'+i+'.jpg/" width="50px"></div><div align="left" class="col-md-8"><h3>'+array1[i-1]+'</center></div></div>';
+
+        x.appendChild(i1);
+        x.appendChild(document.createElement("br"));
+        
+    }
+</script>
+
+{% endblock %}

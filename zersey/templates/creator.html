@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section >
+    <div class="row">
+        <div class="col-md-1">
+                    </div>
+        <div class="col-md-7">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h1 class="text-center box" >
+                    Create A New Petition
+                    </h1>
+                </div>
+                <div class="panel-body">
+                    <form action="/save_create/" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div>
+                          <h4><b>Enter The Title&nbsp&nbsp&nbsp</b></h4>
+                            <textarea name="title" cols="60" rows="2"></textarea>
+                            
+                        </div>
+                        <br>
+                        <div>
+                            <h4><b>For whom is the petition ?</b></h4>
+                            <textarea name="to_whom" cols="60" rows="2"></textarea>
+            
+                        </div>
+                        <div>
+                            <h4><b>What is the petition ?</b></h4>
+                            <textarea name="what_is" cols="60" rows="3"></textarea>
+                        </div>
+                        <div>
+                            <h4><b>More description about petition ?</b></h4>
+                            <textarea name="desc" cols="80" rows="10"></textarea>
+                        </div>
+                        <div>
+                            <h4><b>Any Image related to the petition</b></h4>
+                            <input name="img" type="file" value="choose image"/>
+                        </div>
+                        <center><h2>
+                            <input type="submit" class="btn btn-primary btn-lg" value="Done"></input>
+                        </h2></center>
+                    </form>
+
+                </div>
+            </div>
+        </div>    
+    
+
+</section>
+
+{% endblock %}

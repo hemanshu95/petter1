@@ -1,0 +1,198 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section >
+    {{UserEmail}}
+    <h1 class="text-center box" style="width:850px;padding:5px;margin-left:auto;margin-right:auto;">
+        {{title}}
+    </h1>
+    <div class="row">
+        <div class="col-md-1">
+            
+        </div>
+
+        <div class="col-md-5">
+            <img src="{{img_src}}" width="300px"/>
+            <h1 class="to_class">More Info</h1>
+            <h3>
+                <p>{{desc}}</p>
+            </h3>
+            <h1 class="to_class">Total No. of Signers</h1>
+            <h3>
+                <p>{{signers}}</p>
+            </h3>
+            <center><form action="/sign_petition/P{{num}}/" method="POST" id="sub" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="hidden" name="userEmail" id="userEmail" value="{{UserEmail}}"></input>
+                <button type="button" class="btn btn-warning" onclick="validate_user()" value="Sign the Petition">Sign the Petition</button>
+        
+            </form></center>
+        </div>
+        <div class="col-md-5">
+            <div class="panel-group">
+                <div class="row panel panel-primary">
+                    <div class="panel-heading">JOIN THE CAMPAIGN FOR {{title}}</div>
+                    <div class="panel-body">
+                        <div class="to_class"><h4><b>To {{to_whom}}</b></h4></div>
+                        <div class="about"><h5><b><h1><div class="comm">"</div></h1>{{what_is}}<div class="comm"><h1>"</h1></div></b></h5></div>
+                    </div>
+                
+
+                <div class="row">
+                    <div class="col-md-1">
+                    </div>
+                    <div class="col-md-7">
+                        <div class="panel-group">
+                            <div class="panel panel-danger">
+                                <div class="panel-heading"><h3><b>Already A Member</b></h3></div>
+                                <div class="panel-body">
+                                    <form action="/check/" id="already" method="POST" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="num1" value="{{num}}"/>
+                                        <div>
+                                            <b>Email&nbsp&nbsp&nbsp</b><input type="text" id="iemail" name="email"></input>
+                                        </div>
+                                        <br>
+                                        <div>
+
+                                            <b>Password&nbsp&nbsp&nbsp</b><input type="password" id="ipass" name="pass"></input>
+                                        </div>
+                                        <br>
+                                        <center>
+                                        <input type="button"  onclick="checkin();" value="Sign In" class="btn btn-success"/>
+                                        </center>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-1">
+                    </div>
+                    <div class="col-md-7">
+                        <div class="panel-group">
+                            <div class="panel panel-danger">
+                                <div class="panel-heading"><h3><b>New User</b></h3></div>
+                                <div class="panel-body">
+                                    <form action="/create_user/" id="signUper" method="POST" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="num2" value="{{num}}"></input>
+                                        <div>
+                                            <b>Email&nbsp&nbsp&nbsp</b><input id="uemail" type="text" name="user_email"></input>
+                                        </div>
+                                        <br>
+                                        <div>
+                                            <b>Password&nbsp&nbsp&nbsp</b><input id="upass" type="password" name="user_pass"></input>
+                                        </div>
+                                        <br>
+                                        <div>
+                                            <b>Re-Password&nbsp&nbsp&nbsp</b><input id="urepass" type="password" name="user_re_pass"></input>
+                                        </div>
+                                        <br>
+                                        <center>
+                                        <input type="button" class="btn btn-success" onclick="checkup();" value="Sign Up"/>
+                                        </center>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+
+            
+            
+        </div>
+        <div class="col-md-1"></div>
+        
+        
+    <script type="text/javascript">
+    {{printer}}
+
+    function alertgive(){
+        alert('User by this email already exists');
+    }
+    function invalidpass(){
+        alert('Invalid Credentials');
+    }
+    function signeduser()
+    {
+        alert('You have already signed in for this petition');
+    }
+    function validate_user(){
+        var userEmail=document.getElementById("userEmail");
+        if(userEmail.value=="Anonymous")
+        {
+            alert("Please authenticate your identity");
+            document.getElementById("already").focus();
+        }
+        else
+        {
+            document.getElementById("sub").submit();
+
+        }        
+    }
+    function checkin(){
+
+        //console.log('startloading');
+        var email=document.getElementById('iemail').value;
+        var pass=document.getElementById('ipass').value;
+        
+        var valid_email=false;
+        //console.log('loading');
+        for(var i = 0; i < email.length; i++) {
+            if(email[i]=='@')
+                valid_email=true;
+        }
+        if(valid_email==false)
+        {
+            alert('Enter A valid email containing "@".');
+            return;
+        }
+        if(pass.length<8)
+        {
+            alert('Enter A valid password of length greater than 8.');
+            return;
+        }
+        document.getElementById("already").submit();
+
+    }
+
+    function checkup(){
+        var email=document.getElementById('uemail').value;
+        var pass=document.getElementById('upass').value;
+        var repass=document.getElementById('urepass').value;
+        var valid_email=false;
+        for(var i = 0; i < email.length; i++) {
+            if(email[i]=='@')
+                valid_email=true;
+        }
+        if(valid_email==false)
+        {
+            alert('Enter a valid email containing "@".');
+            return;
+        }
+        if(pass.length<8)
+        {
+            alert('Enter a valid password of length greater than 8.');
+            return;
+        }
+        if(pass==repass)
+        {
+            document.getElementById("signUper").submit();
+        }
+        else
+        {
+            alert('Password and Re-Password should be same.');
+            return;
+        }
+
+    }
+    </script>
+</section>
+
+{% endblock %}
