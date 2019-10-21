@@ -48,5 +48,5 @@ unity-lens-photos==1.0
 urllib3==1.13.1
 vboxapi==1.0
 virtualenv==15.1.0
-Werkzeug==0.12.2
+Werkzeug==0.15.3
 youtube-dl==2016.2.22
