@@ -6,7 +6,7 @@ cheroot==5.1.0
 CherryPy==10.1.0
 click==6.7
 configobj==5.0.6
-cryptography==1.2.3
+cryptography==3.2
 Django==1.8.7
 django-hosts==2.0
 django-jquery==3.1.0
